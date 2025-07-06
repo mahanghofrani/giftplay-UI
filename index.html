@@ -2,122 +2,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GiftPlay - Click to Earn</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GiftPlay - Teddy Level</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Jost', sans-serif;
-      background: linear-gradient(145deg, #1c0533, #2c0b50);
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-    }
-    header {
-      width: 100%;
-      padding: 20px;
-      font-size: 1.8rem;
-      font-weight: 600;
       text-align: center;
-      background: linear-gradient(to right, #8129d9, #4e2db5);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      height: 100vh;
+      justify-content: space-between;
+      padding: 30px 20px;
+    }
+    .rating {
+      width: 100%;
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .rating span:last-child {
+      font-size: 2rem;
+      font-weight: bold;
     }
     .level {
+      font-size: 1.5rem;
+      color: #c28e4c;
       margin-top: 20px;
-      font-size: 1.2rem;
-      background: #2f184e;
-      padding: 10px 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
-    .gift {
-      margin: 30px 0;
-      width: 160px;
-      height: 160px;
-      background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3p0c3RxcnpqNzF3YXFrZzVlc3p2d2hsZ3UwOW8wM3d5Nm0xM3AxaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l0MYA9cUQtoKp5ytG/giphy.gif') center/cover no-repeat;
-      border: 5px solid #ffda77;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      box-shadow: 0 0 25px #ffda77aa;
-    }
-    .gift:active {
-      transform: scale(0.95);
-    }
-    .clicks {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .battery {
-      width: 80%;
-      height: 24px;
-      background: #2b2b3f;
-      border-radius: 15px;
-      overflow: hidden;
-      margin-bottom: 30px;
-      border: 1px solid #555;
-    }
-    .battery-fill {
-      height: 100%;
-      background: linear-gradient(to right, #00ffc8, #00b2ff);
-      width: 80%;
-      transition: width 0.3s ease;
-    }
-    footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: #1a0d2f;
+    .gift-container {
+      margin: 20px auto;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: #c28e4c;
       display: flex;
-      justify-content: space-around;
-      padding: 15px 0;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px #00000050;
     }
-    footer div {
-      text-align: center;
-      font-size: 0.85rem;
+    .gift-container img {
+      width: 140px;
+    }
+    .bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-upgrade {
+      background: limegreen;
+      padding: 12px 20px;
+      color: white;
+      border-radius: 30px;
+      font-weight: bold;
+      border: none;
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
-    footer div:hover {
-      transform: scale(1.1);
+    .energy {
+      font-size: 1.5rem;
+      color: #ffad3b;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
   </style>
 </head>
 <body>
-  <header>🎁 GiftPlay</header>
-  <div class="level">🌟 Level 1: Teddy Level</div>
-  <div class="gift" onclick="clickGift()"></div>
-  <div class="clicks">🔥 Clicks: <span id="clickCount">0</span></div>
-  <div class="battery">
-    <div class="battery-fill" id="batteryFill"></div>
+  <div class="rating">
+    <span>Your Rating:</span>
+    <span>#25</span>
   </div>
-  <footer>
-    <div>🚀 Upgrade</div>
-    <div>🎁 Click</div>
-    <div>👤 Profile</div>
-    <div>👥 Friends</div>
-    <div>💸 Payments</div>
-  </footer>
-  <script>
-    let clickCount = 0;
-    let battery = 80;
-    function clickGift() {
-      if (battery <= 0) return alert("⚠️ Battery empty! Please recharge.");
-      clickCount++;
-      document.getElementById("clickCount").innerText = clickCount;
-      battery -= 2;
-      document.getElementById("batteryFill").style.width = battery + "%";
-    }
-  </script>
+  <div class="level">🧸 TEDDY LEVEL</div>
+  <div class="gift-container">
+    <img src="https://em-content.zobj.net/thumbs/120/apple/354/teddy-bear_1f9f8.png" alt="Teddy" />
+  </div>
+  <div class="bottom">
+    <button class="btn-upgrade">Upgrade Energy</button>
+    <div class="energy">2000 ⚡</div>
+  </div>
 </body>
 </html>
