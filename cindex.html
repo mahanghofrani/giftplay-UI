@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Telegram Profile Mini App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      background: #fff;
+      margin-top: 50px;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0088cc;
+      margin-bottom: 15px;
+      background-color: #e2e8f0;
+    }
+    .username {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0088cc;
+      margin: 8px 0 5px 0;
+    }
+    .fullname {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .stars-balance {
+      background: #ffe600;
+      color: #333;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 8px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(255, 230, 0, 0.5);
+    }
+    .support-button {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      user-select: none;
+    }
+    .support-button:hover {
+      background-color: #006699;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img
+      src="https://via.placeholder.com/100?text=Profile"
+      alt="Profile Picture"
+      id="profilePic"
+      class="profile-image"
+    />
+    <div class="username" id="username">@username</div>
+    <div class="fullname" id="fullname">Full Name</div>
+    <div class="stars-balance" id="starsBalance">Stars: 0</div>
+    <button class="support-button" id="supportBtn">Support</button>
+  </div>
+
+  <script>
+    // Dummy example data (later you can replace this with real Telegram API data)
+    const userData = {
+      profile_photo: 'https://avatars.githubusercontent.com/u/9919?s=200&v=4', // example image url
+      username: 'mahan_gh',
+      fullname: 'Mahan Ghofrani',
+      stars: 1250,
+      supportUrl: 'https://t.me/your_support_bot' // or open a chat etc
+    };
+
+    function loadUserProfile() {
+      document.getElementById('profilePic').src = userData.profile_photo;
+      document.getElementById('username').textContent = '@' + userData.username;
+      document.getElementById('fullname').textContent = userData.fullname;
+      document.getElementById('starsBalance').textContent = `Stars: ${userData.stars}`;
+
+      const supportBtn = document.getElementById('supportBtn');
+      supportBtn.onclick = () => {
+        window.open(userData.supportUrl, '_blank');
+      };
+    }
+
+    window.onload = loadUserProfile;
+  </script>
+</body>
+</html>
