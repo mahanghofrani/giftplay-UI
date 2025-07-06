@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GiftPlay - Click to Earn</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #2b0e4c, #0d3153);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      padding: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .level {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+    .gift {
+      margin: 20px 0;
+      width: 140px;
+      height: 140px;
+      background: url('https://media.giphy.com/media/3o7TKr5z2RG7E4QWso/giphy.gif') center/cover no-repeat;
+      border: 5px solid #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .gift:active {
+      transform: scale(0.95);
+    }
+    .clicks {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .battery {
+      width: 80%;
+      height: 25px;
+      background: #555;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .battery-fill {
+      height: 100%;
+      background: linear-gradient(to right, #00ffc8, #00b2ff);
+      width: 80%;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      font-size: 0.9rem;
+    }
+    footer div {
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>🎁 GiftPlay</header>
+  <div class="level">Level 1: Teddy Level</div>
+  <div class="gift" onclick="clickGift()"></div>
+  <div class="clicks">Clicks: <span id="clickCount">0</span></div>
+  <div class="battery">
+    <div class="battery-fill" id="batteryFill"></div>
+  </div>
+  <footer>
+    <div>🏆 Upgrade</div>
+    <div>🎁 Click</div>
+    <div>👤 Profile</div>
+    <div>👥 Friends</div>
+    <div>💸 Payments</div>
+  </footer>
+  <script>
+    let clickCount = 0;
+    let battery = 80;
+    function clickGift() {
+      if (battery <= 0) return alert("⚠️ Battery empty! Please recharge.");
+      clickCount++;
+      document.getElementById("clickCount").innerText = clickCount;
+      battery -= 2;
+      document.getElementById("batteryFill").style.width = battery + "%";
+    }
+  </script>
+</body>
+</html>
