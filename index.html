@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GiftPlay - Teddy Level</title>
   <style>
     body {
@@ -35,10 +35,18 @@
     .level {
       font-size: 1.5rem;
       color: #c28e4c;
-      margin-top: 20px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .level img {
+      width: 40px;
+      height: 40px;
     }
     .gift-container {
-      margin: 20px auto;
+      margin: 10px auto;
       width: 250px;
       height: 250px;
       border-radius: 50%;
@@ -47,9 +55,18 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 20px #00000050;
+      transition: transform 0.2s ease;
+    }
+    .gift-container:active {
+      transform: scale(0.96);
     }
     .gift-container img {
       width: 140px;
+    }
+    .score {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
     .bottom {
       width: 100%;
@@ -81,13 +98,39 @@
     <span>Your Rating:</span>
     <span>#25</span>
   </div>
-  <div class="level">🧸 TEDDY LEVEL</div>
-  <div class="gift-container">
+  <div class="level">
+    <img src="https://em-content.zobj.net/thumbs/120/apple/354/teddy-bear_1f9f8.png" alt="teddy" />
+    <span>TEDDY LEVEL</span>
+  </div>
+  <div class="score">⭐ Score: <span id="score">0</span></div>
+  <div class="gift-container" onclick="tapGift()">
     <img src="https://em-content.zobj.net/thumbs/120/apple/354/teddy-bear_1f9f8.png" alt="Teddy" />
   </div>
   <div class="bottom">
     <button class="btn-upgrade">Upgrade Energy</button>
-    <div class="energy">2000 ⚡</div>
+    <div class="energy"><span id="energy">2000</span> ⚡</div>
   </div>
+
+  <script>
+    let score = 0;
+    let energy = 2000;
+    let recovering = false;
+
+    function tapGift() {
+      if (energy <= 0 || recovering) return;
+
+      score++;
+      energy--;
+      document.getElementById("score").innerText = score;
+      document.getElementById("energy").innerText = energy;
+
+      recovering = true;
+      setTimeout(() => {
+        energy++;
+        document.getElementById("energy").innerText = energy;
+        recovering = false;
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
