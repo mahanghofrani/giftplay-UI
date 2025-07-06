@@ -3,133 +3,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GiftPlay - Teddy Level</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GiftPlay Lottery</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://tg.dev/sdk/analytics.js"></script>
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+      background: linear-gradient(to bottom right, #141e30, #243b55);
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
-      height: 100vh;
-      justify-content: space-between;
-      padding: 30px 20px;
-    }
-    .rating {
-      width: 100%;
-      font-size: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 10px;
-    }
-    .rating span:last-child {
-      font-size: 2rem;
-      font-weight: bold;
-    }
-    .level {
-      font-size: 1.5rem;
-      color: #c28e4c;
-      margin-top: 10px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    .level img {
-      width: 40px;
-      height: 40px;
-    }
-    .gift-container {
-      margin: 10px auto;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: #c28e4c;
-      display: flex;
-      align-items: center;
+      height: 100vh;
       justify-content: center;
-      box-shadow: 0 0 20px #00000050;
-      transition: transform 0.2s ease;
-    }
-    .gift-container:active {
-      transform: scale(0.96);
-    }
-    .gift-container img {
-      width: 140px;
-    }
-    .score {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .bottom {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
       align-items: center;
+      padding: 20px;
     }
-    .btn-upgrade {
-      background: limegreen;
-      padding: 12px 20px;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .balance {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .lottery-box {
+      background: #2c3e50;
+      padding: 20px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 0 15px #00000060;
+    }
+    .lottery-btn {
+      background: #f39c12;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      font-weight: bold;
       color: white;
       border-radius: 30px;
-      font-weight: bold;
-      border: none;
+      margin-top: 20px;
       cursor: pointer;
     }
-    .energy {
-      font-size: 1.5rem;
-      color: #ffad3b;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+    .result {
+      font-size: 1.3rem;
+      margin-top: 25px;
+      min-height: 50px;
     }
   </style>
 </head>
 <body>
-  <div class="rating">
-    <span>Your Rating:</span>
-    <span>#25</span>
-  </div>
-  <div class="level">
-    <img src="https://em-content.zobj.net/thumbs/120/apple/354/teddy-bear_1f9f8.png" alt="teddy" />
-    <span>TEDDY LEVEL</span>
-  </div>
-  <div class="score">⭐ Score: <span id="score">0</span></div>
-  <div class="gift-container" onclick="tapGift()">
-    <img src="https://em-content.zobj.net/thumbs/120/apple/354/teddy-bear_1f9f8.png" alt="Teddy" />
-  </div>
-  <div class="bottom">
-    <button class="btn-upgrade">Upgrade Energy</button>
-    <div class="energy"><span id="energy">2000</span> ⚡</div>
+  <div class="lottery-box">
+    <h1>🎁 GiftPlay Lottery</h1>
+    <div class="balance">Balance: <span id="balance">60</span> ⭐</div>
+    <button class="lottery-btn" onclick="startLottery()">Start Lottery – 30 ⭐</button>
+    <div class="result" id="result"></div>
   </div>
 
   <script>
-    let score = 0;
-    let energy = 2000;
-    let recovering = false;
+    Telegram.WebApp.ready();
+    Telegram.Analytics.send("open_app");
 
-    function tapGift() {
-      if (energy <= 0 || recovering) return;
+    let balance = 60;
+    let gifts = [
+      "💎 Diamond Ring",
+      "🧸 Teddy Bear",
+      "📦 Jack Box",
+      "🐍 Lunar Snake",
+      "💩 Trash Gift",
+      "⌚ Swiss Watch",
+      "🎩 Durov's Cap",
+      "🔥 Astral Shard"
+    ];
 
-      score++;
-      energy--;
-      document.getElementById("score").innerText = score;
-      document.getElementById("energy").innerText = energy;
+    function startLottery() {
+      if (balance < 30) {
+        document.getElementById("result").innerText = "Not enough Stars!";
+        return;
+      }
+      balance -= 30;
+      document.getElementById("balance").innerText = balance;
 
-      recovering = true;
-      setTimeout(() => {
-        energy++;
-        document.getElementById("energy").innerText = energy;
-        recovering = false;
-      }, 2000);
+      const gift = gifts[Math.floor(Math.random() * gifts.length)];
+      document.getElementById("result").innerText = "You won: " + gift;
+      Telegram.Analytics.send("lottery_played", { gift });
     }
   </script>
 </body>
